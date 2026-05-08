@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Health Path - Entrenamiento</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="ion-palette-dark">
+  <ion-app>
+    <ion-tabs>
+      
+      <!-- PESTAÑA 1: INICIO / OBJETIVOS -->
+      <ion-tab tab="home">
+        <ion-header>
+          <ion-toolbar color="primary">
+            <ion-title>Mi Progreso</ion-title>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-subtitle>Objetivo Seleccionado</ion-card-subtitle>
+              <ion-card-title id="txt-objetivo">Hipertrofia Muscular</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              Aquí verás un resumen de tu actividad física semanal.
+            </ion-card-content>
+          </ion-card>
+        </ion-content>
+      </ion-tab>
+
+      <!-- PESTAÑA 2: ENTRENAMIENTO ACTIVO -->
+      <ion-tab tab="workout">
+        <ion-header>
+          <ion-toolbar color="success">
+            <ion-title>Entrenamiento en Vivo</ion-title>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding">
+          <div id="entrenamiento-vacio" style="text-align: center; margin-top: 50px;">
+            <ion-icon name="barbell-outline" style="font-size: 64px; color: #ccc;"></ion-icon>
+            <h3>No hay entrenamiento iniciado</h3>
+            <ion-button expand="block" onclick="iniciarEntrenamiento()">Empezar Rutina de Hoy</ion-button>
+          </div>
+          
+          <!-- Lista de ejercicios que aparecerá al iniciar -->
+          <ion-list id="lista-ejercicios" style="display: none;">
+            <!-- Se llenará con JavaScript -->
+          </ion-list>
+        </ion-content>
+      </ion-tab>
+
+      <!-- PESTAÑA 3: ESTADÍSTICAS -->
+      <ion-tab tab="stats">
+        <ion-header>
+          <ion-toolbar color="tertiary">
+            <ion-title>Estadísticas</ion-title>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding">
+          <h3>Resumen de la Semana</h3>
+          <!-- Aquí irán los gráficos -->
+          <div id="grafico-dummy" style="height: 200px; background: #f4f4f4; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+            [Gráfico de Progreso]
+          </div>
+        </ion-content>
+      </ion-tab>
+
+      <!-- BARRA DE NAVEGACIÓN (TABS) -->
+      <ion-tab-bar slot="bottom">
+        <ion-tab-button tab="home">
+          <ion-icon name="home-outline"></ion-icon>
+          <ion-label>Inicio</ion-label>
+        </ion-tab-button>
+        <ion-tab-button tab="workout">
+          <ion-icon name="play-outline"></ion-icon>
+          <ion-label>Entrenar</ion-label>
+        </ion-tab-button>
+        <ion-tab-button tab="stats">
+          <ion-icon name="trending-up-outline"></ion-icon>
+          <ion-label>Estadísticas</ion-label>
+        </ion-tab-button>
+      </ion-tab-bar>
+
+    </ion-tabs>
+  </ion-app>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
