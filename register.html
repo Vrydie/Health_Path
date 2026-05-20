@@ -38,48 +38,74 @@
 
                 <ion-card>
                     <ion-card-content>
-                        <ion-list lines="full" style="background: transparent;">
-                            <ion-item style="--background: transparent;">
-                                <ion-label position="floating">Correo electrónico</ion-label>
-                                <ion-input type="email" id="login-email"></ion-input>
-                            </ion-item>
+                        <!-- FASE 1: Datos Personales y Objetivos -->
+                        <div id="fase-1">
+                            <h3 style="text-align: center; margin-bottom: 20px;">Paso 1: Tus Datos</h3>
+                            <ion-list lines="full" style="background: transparent;">
+                                <ion-item style="--background: transparent;">
+                                    <ion-label position="floating">Nombre</ion-label>
+                                    <ion-input type="text" id="login-nombre"></ion-input>
+                                </ion-item>
+                                
+                                <ion-item style="--background: transparent;">
+                                    <ion-label position="floating">Peso (kg)</ion-label>
+                                    <ion-input type="number" id="reg-peso"></ion-input>
+                                </ion-item>
+                                
+                                <ion-item style="--background: transparent;">
+                                    <ion-label position="floating">Estatura (cm)</ion-label>
+                                    <ion-input type="number" id="reg-estatura"></ion-input>
+                                </ion-item>
+
+                                <ion-item style="--background: transparent;">
+                                    <ion-label position="floating">¿Cuál es tu objetivo?</ion-label>
+                                    <ion-select id="reg-meta" placeholder="Selecciona">
+                                        <ion-select-option value="perder_peso">Pérdida de Peso</ion-select-option>
+                                        <ion-select-option value="ganar_masa">Ganancia Muscular</ion-select-option>
+                                        <ion-select-option value="fuerza">Fuerza y Resistencia</ion-select-option>
+                                        <ion-select-option value="salud">Salud General</ion-select-option>
+                                    </ion-select>
+                                </ion-item>
+                                
+                                <ion-item style="--background: transparent;">
+                                    <ion-label position="floating">Frecuencia Semanal</ion-label>
+                                    <ion-input type="number" id="reg-frecuencia" placeholder="Ej: 3"></ion-input>
+                                </ion-item>
+                            </ion-list>
+
+                            <ion-button expand="block" style="margin-top: 20px;" onclick="irAFase2()">
+                                Siguiente
+                            </ion-button>
+                        </div>
+
+                        <!-- FASE 2: Credenciales de Cuenta -->
+                        <div id="fase-2" style="display: none;">
+                            <h3 style="text-align: center; margin-bottom: 20px;">Paso 2: Tu Cuenta</h3>
+                            <ion-list lines="full" style="background: transparent;">
+                                <ion-item style="--background: transparent;">
+                                    <ion-label position="floating">Correo electrónico</ion-label>
+                                    <ion-input type="email" id="login-email"></ion-input>
+                                </ion-item>
+                                
+                                <ion-item style="--background: transparent;">
+                                    <ion-label position="floating">Contraseña</ion-label>
+                                    <ion-input type="password" id="reg-password"></ion-input>
+                                </ion-item>
+
+                                <ion-item style="--background: transparent;">
+                                    <ion-label position="floating">Repetir Contraseña</ion-label>
+                                    <ion-input type="password" id="reg-password-confirm"></ion-input>
+                                </ion-item>
+                            </ion-list>
+
+                            <ion-button expand="block" style="margin-top: 20px;" onclick="registrarUsuario()">
+                                Completar Registro
+                            </ion-button>
                             
-                            <ion-item style="--background: transparent;">
-                                <ion-label position="floating">Nombre</ion-label>
-                                <ion-input type="text" id="login-nombre"></ion-input>
-                            </ion-item>
-
-                            <ion-item style="--background: transparent;"> <ion-label position="floating">Contraseña</ion-label>
-                                <ion-input type="password" id="reg-password"></ion-input>
-                            </ion-item>
-
-                            <ion-item style="--background: transparent;">
-                                <ion-label position="floating">Repetir Contraseña</ion-label>
-                                <ion-input type="password" id="reg-password-confirm"></ion-input>
-                            </ion-item>
-
-                            <ion-item style="--background: transparent;">
-                                <ion-label position="floating">¿Cuál es tu objetivo?</ion-label>
-                                <ion-select id="reg-meta" placeholder="Selecciona">
-                                <ion-select-option value="perder_peso">Pérdida de Peso</ion-select-option>
-                                <ion-select-option value="ganar_masa">Ganancia Muscular</ion-select-option>
-                                <ion-select-option value="fuerza">Fuerza y Resistencia</ion-select-option>
-                                <ion-select-option value="salud">Salud General</ion-select-option>
-                            </ion-select>
-                            </ion-item>
-                            <ion-item style="--background: transparent;">
-                                <ion-label position="floating">Frecuencia Semanal</ion-label>
-                                <ion-input type="number" id="reg-frecuencia" placeholder="Ej: 3"></ion-input>
-                            </ion-item>
-                        </ion-list>
-
-                        <ion-button expand="block" style="margin-top: 20px;" onclick="registrarUsuario()">
-                            Entrar
-                        </ion-button>
-
-                        <ion-button expand="block" fill="clear" color="medium" size="small">
-                            ¿Olvidaste tu contraseña?
-                        </ion-button>
+                            <ion-button expand="block" fill="clear" color="medium" size="small" onclick="volverAFase1()">
+                                Atrás
+                            </ion-button>
+                        </div>
                     </ion-card-content>
                 </ion-card>
 
@@ -91,6 +117,7 @@
         </ion-content>
     </ion-app>
 
+    <script src="js/auth.js"></script>
     <script>
         function validarLogin() {
             const email = document.getElementById('login-email').value;
