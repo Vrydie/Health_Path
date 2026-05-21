@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,11 +9,54 @@
   <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Forzar que los 5 botones quepan en la pantalla */
+    ion-tab-button {
+      min-width: auto !important;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    ion-tab-button ion-label {
+      font-size: 10px !important;
+    }
+
+    /* En celulares muy pequeños (como un iPhone SE), oculta el texto y deja solo los íconos */
+    @media (max-width: 380px) {
+      ion-tab-button ion-label {
+        display: none !important;
+      }
+    }
+
+    /* Estilos para el Modal de Edición */
+    .mi-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .mi-modal.active {
+      display: flex;
+    }
+
+    .mi-modal-contenido {
+      width: 90%;
+      max-width: 400px;
+    }
+  </style>
 </head>
+
 <body class="ion-palette-dark">
   <ion-app>
     <ion-tabs>
-      
+
       <!-- PESTAÑA 1: INICIO / OBJETIVOS -->
       <ion-tab tab="home">
         <ion-header>
@@ -23,8 +67,15 @@
         <ion-content class="ion-padding">
           <ion-card>
             <ion-card-header>
+              <ion-card-subtitle>Bienvenido</ion-card-subtitle>
+              <ion-card-title id="txt-nombre">Cargando...</ion-card-title>
               <ion-card-subtitle>Objetivo Seleccionado</ion-card-subtitle>
-              <ion-card-title id="txt-objetivo">Hipertrofia Muscular</ion-card-title>
+              <ion-card-title id="txt-objetivo">Cargando...</ion-card-title>
+              <ion-card-subtitle>Peso Actual</ion-card-subtitle>
+              <ion-card-title id="txt-peso">Cargando...</ion-card-title>
+              <ion-card-subtitle>Estatura</ion-card-subtitle>
+              <ion-card-title id="txt-estatura" >Cargando...</ion-card-title>
+
             </ion-card-header>
             <ion-card-content>
               Aquí verás un resumen de tu actividad física semanal.
@@ -44,9 +95,41 @@
           <div id="entrenamiento-vacio" style="text-align: center; margin-top: 50px;">
             <ion-icon name="barbell-outline" style="font-size: 64px; color: #ccc;"></ion-icon>
             <h3>No hay entrenamiento iniciado</h3>
-            <ion-button expand="block" onclick="iniciarEntrenamiento()">Empezar Rutina de Hoy</ion-button>
+            <ion-button expand="block" onclick="iniciarEntrenamiento()">Empepieza a entrenar</ion-button>
           </div>
-          
+          <!-- Opciones de entrenamiento (ocultas por defecto) -->
+          <div id="opciones-entrenamiento" style="display: none; margin-bottom: 20px;">
+            <ion-item style="--background: transparent;">
+              <ion-label position="floating">Filtrar por Músculo</ion-label>
+              <ion-select id="filtro-musculo" placeholder="Todos">
+                <ion-select-option value="todos">Todos</ion-select-option>
+                <ion-select-option value="chest">Pecho</ion-select-option>
+                <ion-select-option value="back">Espalda</ion-select-option>
+                <ion-select-option value="upper legs">Piernas</ion-select-option>
+                <ion-select-option value="upper arms">Brazos</ion-select-option>
+                <ion-select-option value="shoulders">Hombros</ion-select-option>
+                <ion-select-option value="waist">Abdomen</ion-select-option>
+                <ion-select-option value="cardio">Cardio</ion-select-option>
+              </ion-select>
+            </ion-item>
+
+            <ion-button expand="block" color="danger" onclick="cerrarEntrenamiento()" style="margin-top: 15px;">
+              <ion-icon name="close-circle-outline" slot="start"></ion-icon>
+              Finalizar Entrenamiento
+            </ion-button>
+          </div>
+
+          <!-- Mi Lista de Entrenamiento (oculta por defecto) -->
+          <div id="mi-lista-entrenamiento-contenedor" style="display: none; margin-bottom: 30px; border: 2px solid var(--ion-color-success); border-radius: 12px; padding: 10px; background: rgba(45, 211, 111, 0.05);">
+            <h3 style="text-align: center; color: var(--ion-color-success); margin-top: 5px; font-weight: bold; font-size: 1.2rem;">
+              <ion-icon name="list-circle-outline" style="vertical-align: middle; margin-right: 5px; font-size: 1.5rem;"></ion-icon>
+              Mi Lista Personal
+            </h3>
+            <ion-list id="mi-lista-ejercicios" style="background: transparent;">
+              <!-- Se llenará con JavaScript -->
+            </ion-list>
+          </div>
+
           <!-- Lista de ejercicios que aparecerá al iniciar -->
           <ion-list id="lista-ejercicios" style="display: none;">
             <!-- Se llenará con JavaScript -->
@@ -64,9 +147,34 @@
         <ion-content class="ion-padding">
           <h3>Resumen de la Semana</h3>
           <!-- Aquí irán los gráficos -->
-          <div id="grafico-dummy" style="height: 200px; background: #f4f4f4; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+          <div id="grafico-dummy"
+            style="height: 200px; background: #f4f4f4; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
             [Gráfico de Progreso]
           </div>
+        </ion-content>
+      </ion-tab>
+
+      <!-- PESTAÑA 4: PERFIL -->
+      <ion-tab tab="profile">
+        <ion-header>
+          <ion-toolbar color="warning">
+            <ion-title>Mi Perfil</ion-title>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding">
+          <div style="text-align: center; margin-top: 20px;">
+            <ion-icon name="person-circle-outline" style="font-size: 80px; color: #ccc;"></ion-icon>
+            <h2 id="perfil-nombre">Cargando...</h2> 
+            <p id="perfil-meta">Tu meta aquí</p> 
+            <p id="perfil-estatura">Estatura: 0.00 cm</p>
+            <p id="perfil-peso">Peso: 0.00 kg</p>
+            <p id="perfil-frecuencia">Frecuencia: 0 días/semana</p>
+          </div>
+          <!-- CAMBIO: Agregamos este botón dentro del perfil -->
+          <ion-button expand="block" color="light" onclick="AbrirEditarPerfil()" style="margin-top: 20px;">
+            <ion-icon name="create-outline" slot="start"></ion-icon>
+            Editar Datos
+          </ion-button>
         </ion-content>
       </ion-tab>
 
@@ -84,11 +192,50 @@
           <ion-icon name="trending-up-outline"></ion-icon>
           <ion-label>Estadísticas</ion-label>
         </ion-tab-button>
+        <ion-tab-button tab="profile">
+          <ion-icon name="person-outline"></ion-icon>
+          <ion-label>Perfil</ion-label>
+        </ion-tab-button>
+        <!-- En lugar de ser un tab, será un botón normal con un evento onclick -->
+        <ion-tab-button onclick="cerrarSesion()">
+          <ion-icon name="log-out-outline"></ion-icon>
+          <ion-label>Cerrar Sesión</ion-label>
+        </ion-tab-button>
       </ion-tab-bar>
 
     </ion-tabs>
   </ion-app>
 
+  <!-- MODAL DE EDICIÓN (Oculto por defecto) -->
+  <div id="modal-editar-perfil" class="mi-modal">
+    <div class="mi-modal-contenido">
+      <ion-card style="margin: 0; --background: #2a2a2a; color: white;">
+        <ion-card-header>
+          <ion-card-title style="color: white;">Editar Perfil</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-item style="--background: transparent;"><ion-label position="floating"
+              style="color: #aaa;">Nombre</ion-label><ion-input id="edit-nombre"
+              style="color: white;"></ion-input></ion-item>
+          <ion-item style="--background: transparent;"><ion-label position="floating"
+              style="color: #aaa;">Meta</ion-label><ion-input id="edit-meta"
+              style="color: white;"></ion-input></ion-item>
+          <ion-item style="--background: transparent;"><ion-label position="floating" style="color: #aaa;">Estatura
+              (cm)</ion-label><ion-input type="number" id="edit-estatura" style="color: white;"></ion-input></ion-item>
+          <ion-item style="--background: transparent;"><ion-label position="floating" style="color: #aaa;">Peso
+              (kg)</ion-label><ion-input type="number" id="edit-peso" style="color: white;"></ion-input></ion-item>
+          <ion-item style="--background: transparent;"><ion-label position="floating"
+              style="color: #aaa;">Frecuencia</ion-label><ion-input type="number" id="edit-frecuencia"
+              style="color: white;"></ion-input></ion-item>
+
+          <ion-button expand="block" style="margin-top: 20px;" onclick="GuardarEdicion()">Guardar Cambios</ion-button>
+          <ion-button expand="block" fill="clear" color="medium" onclick="CerrarModal()">Cancelar</ion-button>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+
   <script src="js/app.js"></script>
 </body>
+
 </html>
