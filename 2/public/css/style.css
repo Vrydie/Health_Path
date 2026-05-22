@@ -1,0 +1,643 @@
+/* ============================================================
+   HEALTH PATH — LIQUID GLASS DESIGN SYSTEM
+   Inspired by Apple's visionOS / iOS 26 aesthetic
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600&display=swap');
+
+/* ── VARIABLES ──────────────────────────────────────────── */
+:root {
+  /* Liquid Glass Core */
+  --glass-bg: rgba(255, 255, 255, 0.07);
+  --glass-bg-hover: rgba(255, 255, 255, 0.12);
+  --glass-bg-strong: rgba(255, 255, 255, 0.13);
+  --glass-border: rgba(255, 255, 255, 0.18);
+  --glass-border-light: rgba(255, 255, 255, 0.08);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 1px 0 rgba(255,255,255,0.08) inset;
+  --glass-shadow-lg: 0 24px 64px rgba(0, 0, 0, 0.6), 0 1px 0 rgba(255,255,255,0.1) inset;
+  --glass-blur: blur(24px) saturate(180%);
+  --glass-blur-light: blur(12px) saturate(150%);
+
+  /* Brand Colors */
+  --accent-primary: #4fd1c5;
+  --accent-secondary: #667eea;
+  --accent-warm: #f6ad55;
+  --accent-danger: #fc8181;
+  --accent-success: #68d391;
+
+  /* Gradients */
+  --gradient-hero: linear-gradient(135deg, #0f0f1a 0%, #1a1a3e 40%, #0f2027 100%);
+  --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.04) 100%);
+  --gradient-accent: linear-gradient(135deg, #4fd1c5 0%, #667eea 100%);
+  --gradient-tab: linear-gradient(180deg, rgba(15,15,26,0.95) 0%, rgba(10,10,20,0.98) 100%);
+
+  /* Typography */
+  --font-display: 'Sora', 'SF Pro Display', system-ui, sans-serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+
+  /* Spacing */
+  --radius-sm: 12px;
+  --radius-md: 18px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-pill: 9999px;
+
+  /* Ionic overrides */
+  --ion-background-color: #080810;
+  --ion-background-color-rgb: 8, 8, 16;
+  --ion-text-color: #ffffff;
+  --ion-text-color-rgb: 255, 255, 255;
+  --ion-card-background: transparent;
+  --ion-item-background: transparent;
+  --ion-toolbar-background: transparent;
+  --ion-tab-bar-background: rgba(8, 8, 16, 0.85);
+  --ion-color-primary: var(--accent-primary);
+  --ion-color-primary-rgb: 79, 209, 197;
+  --ion-color-success: var(--accent-success);
+  --ion-color-warning: var(--accent-warm);
+  --ion-color-danger: var(--accent-danger);
+}
+
+/* ── BODY & BACKGROUND ──────────────────────────────────── */
+body {
+  font-family: var(--font-body) !important;
+  background: var(--gradient-hero) !important;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Animated ambient orbs */
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+  animation: orbFloat 8s ease-in-out infinite alternate;
+}
+
+body::before {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(79, 209, 197, 0.12) 0%, transparent 70%);
+  top: -100px;
+  right: -100px;
+}
+
+body::after {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(102, 126, 234, 0.10) 0%, transparent 70%);
+  bottom: -150px;
+  left: -100px;
+  animation-delay: -4s;
+}
+
+@keyframes orbFloat {
+  0%   { transform: translate(0, 0) scale(1); opacity: 0.7; }
+  50%  { transform: translate(30px, -20px) scale(1.05); opacity: 1; }
+  100% { transform: translate(-20px, 30px) scale(0.95); opacity: 0.8; }
+}
+
+/* ── ION APP & CONTENT ──────────────────────────────────── */
+ion-app {
+  background: transparent !important;
+  position: relative;
+  z-index: 1;
+}
+
+ion-content {
+  --background: transparent;
+  position: relative;
+}
+
+/* ── LIQUID GLASS CARD ──────────────────────────────────── */
+ion-card,
+.mi-modal-contenido ion-card {
+  background: var(--glass-bg) !important;
+  backdrop-filter: var(--glass-blur) !important;
+  -webkit-backdrop-filter: var(--glass-blur) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-radius: var(--radius-xl) !important;
+  box-shadow: var(--glass-shadow-lg) !important;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+/* Shimmer top edge */
+ion-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%);
+  z-index: 2;
+}
+
+ion-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--glass-shadow-lg), 0 0 40px rgba(79, 209, 197, 0.08) !important;
+}
+
+ion-card-header {
+  background: transparent !important;
+  padding: 20px 20px 12px !important;
+}
+
+ion-card-title {
+  font-family: var(--font-display) !important;
+  font-size: 1.4rem !important;
+  font-weight: 700 !important;
+  color: #fff !important;
+  letter-spacing: -0.02em;
+}
+
+ion-card-subtitle {
+  font-family: var(--font-body) !important;
+  font-size: 0.72rem !important;
+  font-weight: 500 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent-primary) !important;
+  opacity: 0.85;
+  margin-bottom: 2px !important;
+}
+
+ion-card-content {
+  background: transparent !important;
+  color: rgba(255,255,255,0.75) !important;
+}
+
+/* ── ION ITEMS ──────────────────────────────────────────── */
+ion-item {
+  --background: rgba(255, 255, 255, 0.06) !important;
+  --background-hover: rgba(255, 255, 255, 0.10) !important;
+  --border-color: rgba(255, 255, 255, 0.12) !important;
+  --color: rgba(255, 255, 255, 0.9) !important;
+  --inner-padding-end: 16px;
+  --padding-start: 16px;
+  border-radius: var(--radius-md) !important;
+  margin-bottom: 10px !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  transition: all 0.25s ease;
+  overflow: hidden;
+}
+
+ion-item:hover {
+  --background: rgba(255, 255, 255, 0.10) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+ion-item::part(native) {
+  background: transparent;
+  border-radius: var(--radius-md);
+}
+
+ion-label {
+  font-family: var(--font-body) !important;
+  font-size: 0.85rem !important;
+  color: rgba(255, 255, 255, 0.6) !important;
+  font-weight: 400 !important;
+}
+
+ion-input {
+  --color: #fff !important;
+  --placeholder-color: rgba(255,255,255,0.3) !important;
+  font-family: var(--font-body) !important;
+  font-size: 0.95rem !important;
+  font-weight: 400 !important;
+  caret-color: var(--accent-primary) !important;
+}
+
+ion-select {
+  --color: #fff !important;
+  --placeholder-color: rgba(255,255,255,0.3) !important;
+  font-family: var(--font-body) !important;
+}
+
+ion-list {
+  background: transparent !important;
+  padding: 0 !important;
+}
+
+/* ── BUTTONS ─────────────────────────────────────────────── */
+ion-button {
+  font-family: var(--font-display) !important;
+  font-weight: 600 !important;
+  font-size: 0.9rem !important;
+  letter-spacing: 0.01em;
+  --border-radius: var(--radius-pill) !important;
+  --box-shadow: none !important;
+  transition: all 0.3s ease !important;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Primary button — gradient glass */
+ion-button[expand="block"]:not([fill="clear"]):not([color]) {
+  --background: linear-gradient(135deg, rgba(79, 209, 197, 0.85) 0%, rgba(102, 126, 234, 0.85) 100%) !important;
+  --color: #fff !important;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.25) !important;
+  box-shadow: 0 4px 24px rgba(79, 209, 197, 0.25), 0 1px 0 rgba(255,255,255,0.2) inset !important;
+}
+
+ion-button[expand="block"]:not([fill="clear"]):not([color]):hover {
+  transform: translateY(-1px) scale(1.01);
+  box-shadow: 0 8px 32px rgba(79, 209, 197, 0.4), 0 1px 0 rgba(255,255,255,0.3) inset !important;
+}
+
+ion-button[expand="block"]:not([fill="clear"]):not([color])::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.5s ease;
+}
+
+ion-button[expand="block"]:not([fill="clear"]):not([color]):hover::after {
+  left: 150%;
+}
+
+/* Danger button */
+ion-button[color="danger"] {
+  --background: rgba(252, 129, 129, 0.15) !important;
+  --color: var(--accent-danger) !important;
+  border: 1px solid rgba(252, 129, 129, 0.3) !important;
+  backdrop-filter: blur(8px);
+}
+
+/* Light button */
+ion-button[color="light"] {
+  --background: rgba(255, 255, 255, 0.08) !important;
+  --color: rgba(255,255,255,0.85) !important;
+  border: 1px solid rgba(255,255,255,0.15) !important;
+  backdrop-filter: blur(8px);
+}
+
+/* Clear / ghost button */
+ion-button[fill="clear"] {
+  --color: rgba(255,255,255,0.45) !important;
+}
+
+ion-button[fill="clear"]:hover {
+  --color: rgba(255,255,255,0.75) !important;
+}
+
+/* ── HEADER / TOOLBAR ────────────────────────────────────── */
+ion-header {
+  --background: transparent;
+  position: relative;
+}
+
+ion-header::after {
+  display: none !important; /* remove ionic divider line */
+}
+
+ion-toolbar {
+  --background: rgba(8, 8, 16, 0.7) !important;
+  --color: #fff !important;
+  backdrop-filter: var(--glass-blur) !important;
+  -webkit-backdrop-filter: var(--glass-blur) !important;
+  border-bottom: 1px solid rgba(255,255,255,0.08) !important;
+  --padding-top: 10px;
+  --padding-bottom: 10px;
+}
+
+ion-toolbar[color="primary"] {
+  --background: rgba(79, 209, 197, 0.12) !important;
+  border-bottom: 1px solid rgba(79, 209, 197, 0.2) !important;
+}
+
+ion-toolbar[color="success"] {
+  --background: rgba(104, 211, 145, 0.12) !important;
+  border-bottom: 1px solid rgba(104, 211, 145, 0.2) !important;
+}
+
+ion-toolbar[color="tertiary"] {
+  --background: rgba(102, 126, 234, 0.12) !important;
+  border-bottom: 1px solid rgba(102, 126, 234, 0.2) !important;
+}
+
+ion-toolbar[color="warning"] {
+  --background: rgba(246, 173, 85, 0.12) !important;
+  border-bottom: 1px solid rgba(246, 173, 85, 0.2) !important;
+}
+
+ion-title {
+  font-family: var(--font-display) !important;
+  font-size: 1.05rem !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.01em;
+  color: #fff !important;
+}
+
+/* ── TAB BAR ─────────────────────────────────────────────── */
+ion-tab-bar {
+  --background: rgba(8, 8, 16, 0.88) !important;
+  backdrop-filter: blur(24px) saturate(200%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(200%) !important;
+  border-top: 1px solid rgba(255,255,255,0.1) !important;
+  height: 62px !important;
+  padding-bottom: 4px;
+}
+
+ion-tab-button {
+  --color: rgba(255, 255, 255, 0.4) !important;
+  --color-selected: var(--accent-primary) !important;
+  font-family: var(--font-body) !important;
+  transition: all 0.25s ease;
+  position: relative;
+}
+
+ion-tab-button.tab-selected::before,
+ion-tab-button[aria-selected="true"]::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 28px;
+  height: 28px;
+  background: rgba(79, 209, 197, 0.12);
+  border-radius: 10px;
+  border: 1px solid rgba(79, 209, 197, 0.2);
+  backdrop-filter: blur(4px);
+}
+
+ion-tab-button ion-icon {
+  font-size: 22px !important;
+}
+
+ion-tab-button ion-label {
+  font-size: 10px !important;
+  font-weight: 500 !important;
+  color: inherit !important;
+  margin-top: 2px;
+}
+
+/* ── LOGIN PAGE SPECIFIC ─────────────────────────────────── */
+.login-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 32px 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.login-wrapper h1 {
+  font-family: var(--font-display) !important;
+  font-size: 3.2em !important;
+  font-weight: 800 !important;
+  background: linear-gradient(135deg, #fff 0%, var(--accent-primary) 60%, var(--accent-secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin-bottom: 8px !important;
+  animation: titleReveal 0.8s ease forwards;
+}
+
+@keyframes titleReveal {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.login-wrapper p {
+  animation: titleReveal 0.8s ease 0.15s backwards;
+}
+
+.login-wrapper ion-card {
+  animation: cardReveal 0.7s ease 0.3s backwards;
+  width: 100%;
+  max-width: 420px;
+}
+
+@keyframes cardReveal {
+  from { opacity: 0; transform: translateY(30px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Logo mark decoration */
+.login-wrapper > div:first-child::before {
+  content: '✦';
+  display: block;
+  font-size: 2rem;
+  color: var(--accent-primary);
+  opacity: 0.7;
+  margin-bottom: 16px;
+  animation: pulse 3s ease infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50%       { opacity: 1; transform: scale(1.1); }
+}
+
+/* ── WORKOUT / APP SCREEN ────────────────────────────────── */
+/* Stats placeholder */
+#grafico-dummy {
+  background: var(--glass-bg) !important;
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  color: rgba(255,255,255,0.4) !important;
+  font-family: var(--font-display) !important;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+}
+
+/* Workout empty state */
+#entrenamiento-vacio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  gap: 12px;
+}
+
+#entrenamiento-vacio ion-icon {
+  color: rgba(79, 209, 197, 0.4) !important;
+  filter: drop-shadow(0 0 20px rgba(79, 209, 197, 0.2));
+}
+
+#entrenamiento-vacio h3 {
+  font-family: var(--font-display) !important;
+  font-size: 1.1rem !important;
+  font-weight: 500 !important;
+  color: rgba(255,255,255,0.5) !important;
+}
+
+/* Exercise list container */
+#mi-lista-entrenamiento-contenedor {
+  background: rgba(104, 211, 145, 0.04) !important;
+  border: 1px solid rgba(104, 211, 145, 0.15) !important;
+  border-radius: var(--radius-lg) !important;
+  backdrop-filter: blur(12px);
+}
+
+/* Profile icon */
+#profile ion-icon[name="person-circle-outline"] {
+  color: rgba(79, 209, 197, 0.5) !important;
+  filter: drop-shadow(0 0 30px rgba(79, 209, 197, 0.2));
+}
+
+#profile h2 {
+  font-family: var(--font-display) !important;
+  font-size: 1.6rem !important;
+  font-weight: 700 !important;
+  background: linear-gradient(135deg, #fff 0%, var(--accent-primary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+#profile p {
+  font-family: var(--font-body) !important;
+  color: rgba(255,255,255,0.5) !important;
+  font-size: 0.9rem !important;
+}
+
+/* ── MODAL ───────────────────────────────────────────────── */
+.mi-modal {
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  background: rgba(0, 0, 0, 0.6) !important;
+  z-index: 9999;
+  animation: modalFadeIn 0.25s ease;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.mi-modal.active {
+  display: flex !important;
+}
+
+.mi-modal-contenido {
+  animation: modalSlideUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  width: 92% !important;
+  max-width: 440px;
+}
+
+@keyframes modalSlideUp {
+  from { opacity: 0; transform: translateY(40px) scale(0.95); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.mi-modal-contenido ion-card {
+  background: rgba(18, 18, 32, 0.92) !important;
+  border: 1px solid rgba(255,255,255,0.15) !important;
+}
+
+/* ── STEP WIZARD (register) ──────────────────────────────── */
+#fase-1 h3,
+#fase-2 h3 {
+  font-family: var(--font-display) !important;
+  font-weight: 700 !important;
+  color: var(--accent-primary) !important;
+  font-size: 1.1rem !important;
+  letter-spacing: -0.01em;
+}
+
+/* ── SELECT OPTIONS ──────────────────────────────────────── */
+ion-select-popover,
+.select-popover ion-list {
+  background: rgba(18, 18, 32, 0.95) !important;
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+}
+
+/* ── ICONS ───────────────────────────────────────────────── */
+ion-icon {
+  color: inherit;
+}
+
+/* ── SCROLLBAR ───────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(79, 209, 197, 0.3);
+  border-radius: var(--radius-pill);
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(79, 209, 197, 0.5); }
+
+/* ── LINKS ───────────────────────────────────────────────── */
+a {
+  color: var(--accent-primary) !important;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+a:hover { opacity: 0.75; }
+
+/* ── UTILITY TEXT ────────────────────────────────────────── */
+h3 {
+  font-family: var(--font-display) !important;
+  font-weight: 700 !important;
+}
+
+p, span {
+  font-family: var(--font-body) !important;
+}
+
+/* ── RESPONSIVE ──────────────────────────────────────────── */
+@media (max-width: 380px) {
+  ion-tab-button ion-label {
+    display: none !important;
+  }
+  
+  .login-wrapper h1 {
+    font-size: 2.4em !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .login-wrapper ion-card {
+    max-width: 460px;
+  }
+  
+  ion-card {
+    border-radius: var(--radius-xl) !important;
+  }
+}
+
+/* ── ENTRANCE ANIMATIONS ─────────────────────────────────── */
+ion-card,
+ion-item {
+  animation: itemReveal 0.5s ease backwards;
+}
+
+ion-card:nth-child(1) { animation-delay: 0.05s; }
+ion-card:nth-child(2) { animation-delay: 0.10s; }
+ion-card:nth-child(3) { animation-delay: 0.15s; }
+
+ion-item:nth-child(1) { animation-delay: 0.10s; }
+ion-item:nth-child(2) { animation-delay: 0.18s; }
+ion-item:nth-child(3) { animation-delay: 0.26s; }
+ion-item:nth-child(4) { animation-delay: 0.34s; }
+ion-item:nth-child(5) { animation-delay: 0.42s; }
+
+@keyframes itemReveal {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
