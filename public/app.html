@@ -382,69 +382,69 @@
               Aquí verás un resumen de tu actividad física semanal.
             </ion-card-content>
           </ion-card>
+
+          <!-- Tarjeta de Progreso Semanal (DENTRO de ion-content para que el layout sea correcto) -->
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title style="font-weight: bold; font-size: 1.2rem;">Progreso Semanal</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <!-- Barra de Pecho -->
+              <div class="muscle-progress-container">
+                <div class="muscle-info">
+                  <span class="muscle-name">Pecho</span>
+                  <span class="muscle-percentage" id="txt-pecho">0%</span>
+                </div>
+                <ion-progress-bar id="bar-pecho" value="0" color="primary"></ion-progress-bar>
+              </div>
+
+              <!-- Barra de Piernas -->
+              <div class="muscle-progress-container">
+                <div class="muscle-info">
+                  <span class="muscle-name">Piernas</span>
+                  <span class="muscle-percentage" id="txt-piernas">0%</span>
+                </div>
+                <ion-progress-bar id="bar-piernas" value="0" color="success"></ion-progress-bar>
+              </div>
+
+              <!-- Barra de Abdomen -->
+              <div class="muscle-progress-container">
+                <div class="muscle-info">
+                  <span class="muscle-name">Abdomen</span>
+                  <span class="muscle-percentage" id="txt-abdomen">0%</span>
+                </div>
+                <ion-progress-bar id="bar-abdomen" value="0" color="tertiary"></ion-progress-bar>
+              </div>
+
+              <!-- Barra de Brazos -->
+              <div class="muscle-progress-container">
+                <div class="muscle-info">
+                  <span class="muscle-name">Brazos</span>
+                  <span class="muscle-percentage" id="txt-brazos">0%</span>
+                </div>
+                <ion-progress-bar id="bar-brazos" value="0" color="warning"></ion-progress-bar>
+              </div>
+
+              <!-- Barra de Espalda -->
+              <div class="muscle-progress-container">
+                <div class="muscle-info">
+                  <span class="muscle-name">Espalda</span>
+                  <span class="muscle-percentage" id="txt-espalda">0%</span>
+                </div>
+                <ion-progress-bar id="bar-espalda" value="0" color="secondary"></ion-progress-bar>
+              </div>
+
+              <!-- Barra de Hombros -->
+              <div class="muscle-progress-container">
+                <div class="muscle-info">
+                  <span class="muscle-name">Hombros</span>
+                  <span class="muscle-percentage" id="txt-hombros">0%</span>
+                </div>
+                <ion-progress-bar id="bar-hombros" value="0" color="danger"></ion-progress-bar>
+              </div>
+            </ion-card-content>
+          </ion-card>
         </ion-content>
-<!-- Tarjeta de Progreso Semanal de Entrenamiento -->
-<ion-card>
-  <ion-card-header>
-    <ion-card-title style="font-weight: bold; font-size: 1.2rem;">Progreso Semanal</ion-card-title>
-  </ion-card-header>
-
-  <ion-card-content>
-    <!-- Barra de Pecho -->
-    <div class="muscle-progress-container">
-      <div class="muscle-info">
-        <span class="muscle-name">Pecho</span>
-        <span class="muscle-percentage" id="txt-pecho">0%</span>
-      </div>
-      <ion-progress-bar id="bar-pecho" value="0" color="primary"></ion-progress-bar>
-    </div>
-
-    <!-- Barra de Piernas -->
-    <div class="muscle-progress-container">
-      <div class="muscle-info">
-        <span class="muscle-name">Piernas</span>
-        <span class="muscle-percentage" id="txt-piernas">0%</span>
-      </div>
-      <ion-progress-bar id="bar-piernas" value="0" color="success"></ion-progress-bar>
-    </div>
-
-    <!-- Barra de Abdomen -->
-    <div class="muscle-progress-container">
-      <div class="muscle-info">
-        <span class="muscle-name">Abdomen</span>
-        <span class="muscle-percentage" id="txt-abdomen">0%</span>
-      </div>
-      <ion-progress-bar id="bar-abdomen" value="0" color="tertiary"></ion-progress-bar>
-    </div>
-
-    <!-- Barra de Brazos -->
-    <div class="muscle-progress-container">
-      <div class="muscle-info">
-        <span class="muscle-name">Brazos</span>
-        <span class="muscle-percentage" id="txt-brazos">0%</span>
-      </div>
-      <ion-progress-bar id="bar-brazos" value="0" color="warning"></ion-progress-bar>
-    </div>
-
-    <!-- Barra de Espalda -->
-    <div class="muscle-progress-container">
-      <div class="muscle-info">
-        <span class="muscle-name">Espalda</span>
-        <span class="muscle-percentage" id="txt-espalda">0%</span>
-      </div>
-      <ion-progress-bar id="bar-espalda" value="0" color="secondary"></ion-progress-bar>
-    </div>
-
-    <!-- Barra de Hombros -->
-    <div class="muscle-progress-container">
-      <div class="muscle-info">
-        <span class="muscle-name">Hombros</span>
-        <span class="muscle-percentage" id="txt-hombros">0%</span>
-      </div>
-      <ion-progress-bar id="bar-hombros" value="0" color="danger"></ion-progress-bar>
-    </div>
-  </ion-card-content>
-</ion-card>
 
       </ion-tab>
 
