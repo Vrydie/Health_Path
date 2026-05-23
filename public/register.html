@@ -179,7 +179,8 @@
             caret-color: var(--accent) !important;
         }
         ion-select {
-            --color: #151515 !important;
+            --color: #fff !important;
+            --placeholder-color: rgba(255,255,255,0.4) !important;
             font-family: var(--font-body) !important;
         }
         ion-list { background: transparent !important; }
@@ -218,6 +219,63 @@
         @keyframes pulse {
             0%,100% { opacity: 0.5; transform: scale(1); }
             50%      { opacity: 1; transform: scale(1.15); }
+        }
+    </style>
+
+    <!-- Estilos globales para el popover/action-sheet de ion-select en iOS y Android -->
+    <!-- Ionic los inyecta en el <body> fuera de ion-app, por eso van aqui separados -->
+    <style>
+        /* === ACTION SHEET (Android) === */
+        .action-sheet-wrapper .action-sheet-container .action-sheet-group {
+            background: #06061a !important;
+        }
+        .action-sheet-button {
+            color: #fff !important;
+            background: transparent !important;
+        }
+        .action-sheet-button:hover {
+            background: rgba(79,209,197,0.08) !important;
+        }
+        .action-sheet-title {
+            color: rgba(255,255,255,0.5) !important;
+            background: #040408 !important;
+            font-size: 0.82rem !important;
+        }
+        .action-sheet-cancel .action-sheet-button-inner {
+            color: #fc8181 !important;
+        }
+
+        /* === ALERT (iOS select popover) === */
+        .alert-wrapper {
+            background: #06061a !important;
+            border: 1px solid rgba(255,255,255,0.08) !important;
+            border-radius: 18px !important;
+        }
+        .alert-head {
+            background: transparent !important;
+        }
+        .alert-title {
+            color: #fff !important;
+            font-size: 1rem !important;
+            font-weight: 600 !important;
+        }
+        .alert-radio-label {
+            color: rgba(255,255,255,0.85) !important;
+        }
+        .alert-radio-button.alert-radio-button-md.sc-ion-alert-md:checked,
+        [aria-checked="true"] .alert-radio-label {
+            color: #4fd1c5 !important;
+        }
+        .alert-radio-inner {
+            border-color: #4fd1c5 !important;
+            background: #4fd1c5 !important;
+        }
+        .alert-button {
+            color: #4fd1c5 !important;
+            font-weight: 600 !important;
+        }
+        .alert-button-group {
+            border-top: 1px solid rgba(255,255,255,0.06) !important;
         }
     </style>
 </head>
