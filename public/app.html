@@ -45,6 +45,9 @@
       font-family: var(--font-body);
       background: linear-gradient(135deg, #020205 0%, #06061a 45%, #040c10 100%) !important;
       min-height: 100vh;
+      min-height: 100dvh;
+      height: 100dvh;
+      overflow: hidden;
     }
     body::before, body::after {
       content: '';
@@ -64,7 +67,11 @@
       bottom: -150px; left: -120px;
     }
 
-    ion-app { background: transparent !important; }
+    ion-app {
+      background: transparent !important;
+      height: 100dvh !important;
+      max-height: 100dvh !important;
+    }
     ion-content { --background: transparent; }
 
     /* ── TOOLBAR ──────────────────────────────────── */
@@ -92,12 +99,17 @@
 
     /* ── TAB BAR ──────────────────────────────────── */
     ion-tab-bar {
-      --background: rgba(4,4,8,0.95) !important;
+      --background: rgba(4,4,8,0.97) !important;
       backdrop-filter: blur(24px) saturate(200%) !important;
       -webkit-backdrop-filter: blur(24px) saturate(200%) !important;
       border-top: 1px solid rgba(255,255,255,0.06) !important;
-      height: calc(64px + env(safe-area-inset-bottom)) !important;
-      padding-bottom: max(6px, env(safe-area-inset-bottom)) !important;
+      height: auto !important;
+      min-height: 56px !important;
+      padding-bottom: env(safe-area-inset-bottom, 8px) !important;
+      padding-top: 6px !important;
+      position: sticky !important;
+      bottom: 0 !important;
+      z-index: 9999 !important;
     }
     ion-tab-button {
       --color: rgba(255,255,255,0.38) !important;
