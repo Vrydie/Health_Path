@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#4fd1c5">
+    <link rel="apple-touch-icon" href="/assets/logo.png">
     <style>
         :root {
             --accent: #4fd1c5;
@@ -225,9 +228,9 @@
             <div class="login-wrapper">
 
                 <div class="logo-area">
-                    <div class="logo-mark">✦</div>
-                    <h1>Health Path</h1>
-                    <p>Crea tu cuenta</p>
+                    <img src="/assets/logo.png" alt="Health Path Logo" style="width: 100px; height: 100px; object-fit: contain; margin-bottom: 10px; border-radius: 20px; box-shadow: 0 10px 30px rgba(79,209,197,0.3);">
+                    <h1>Crear Cuenta</h1>
+                    <p>Únete a Health Path</p>
                 </div>
 
                 <ion-card>
@@ -329,5 +332,14 @@
         }
     </script>
     <script src="js/auth.js"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then(reg => console.log('Service Worker registrado', reg))
+            .catch(err => console.error('Error al registrar Service Worker', err));
+        });
+      }
+    </script>
 </body>
 </html>
